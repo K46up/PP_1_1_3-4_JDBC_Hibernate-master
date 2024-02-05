@@ -15,7 +15,7 @@ public class Util {
 
     public static Connection getConnection() {
         try {
-            if (!connection.isClosed()) {
+            if (connection == null) {
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
             }
         } catch (SQLException e) {
