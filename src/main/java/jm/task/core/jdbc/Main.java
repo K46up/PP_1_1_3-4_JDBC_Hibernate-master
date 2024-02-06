@@ -13,22 +13,29 @@ public class Main {
         Util.getConnection();
         UserDao userDao = new UserDaoJDBCImpl();
 
-        userDao.createUsersTable();
         userDao.dropUsersTable();
         userDao.createUsersTable();
         userDao.dropUsersTable();
+        userDao.createUsersTable();
 
-        Util.closeConnection();
-
-/*        userDao.saveUser("Name1", "LastName1", (byte) 20);
+        userDao.saveUser("Name1", "LastName1", (byte) 20);
         userDao.saveUser("Name2", "LastName2", (byte) 25);
         userDao.saveUser("Name3", "LastName3", (byte) 31);
         userDao.saveUser("Name4", "LastName4", (byte) 38);
+        userDao.saveUser("Name5", "LastName5", (byte) 48);
+        userDao.saveUser("Name6", "LastName6", (byte) 8);
 
         userDao.removeUserById(1);
+        userDao.removeUserById(3);
+        userDao.removeUserById(5);
+
         userDao.getAllUsers();
+
+
         userDao.cleanUsersTable();
-        userDao.dropUsersTable();*/
+        userDao.getAllUsers();
+        //userDao.dropUsersTable();
+        Util.closeConnection();
 
 /*        try {
             Util.getConnection();
