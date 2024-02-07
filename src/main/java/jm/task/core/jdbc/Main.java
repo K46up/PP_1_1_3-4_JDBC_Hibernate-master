@@ -34,17 +34,8 @@ public class Main {
 
         userDao.cleanUsersTable();
         userDao.getAllUsers();
-        //userDao.dropUsersTable();
+        userDao.dropUsersTable();
         Util.closeConnection();
 
-/*        try {
-            Util.getConnection();
-            System.out.println("Connect");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        Util.closeConnection();
-        System.out.println("Disconnect");*/
     }
 }
