@@ -8,18 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private Connection connection;
+    private final Connection connection = Util.getConnection();
 
-    {
-        try {
 
-            connection = Util.getConnection();
-            connection.setAutoCommit(false);
-
-        } catch (SQLException e) {
-            System.out.println("ERROR CONNECTION");
-        }
-    }
     public UserDaoJDBCImpl() {
 
     }
@@ -35,7 +26,7 @@ public class UserDaoJDBCImpl implements UserDao {
                     "  PRIMARY KEY (id)," +
                     "  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE)");
 
-            connection.commit();
+            //connection.commit();
 
             System.out.println("TABLE `user` created");
 
@@ -51,7 +42,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try(Statement statement = connection.createStatement()){
 
             statement.executeUpdate(query);
-            connection.commit();
+            //connection.commit();
 
             System.out.println("TABLE `user` drop");
 
@@ -71,7 +62,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setByte(3,age);
 
             statement.executeUpdate();
-            connection.commit();
+            //connection.commit();
 
             System.out.println("User " + name + " save in TABLE `user`");
 
@@ -87,7 +78,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setLong(1,id);
 
             statement.executeUpdate();
-            connection.commit();
+            //connection.commit();
 
             System.out.println("Remove user from TABLE `user` where id " + id);
 
@@ -109,7 +100,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 User user = new User(resultSet.getString(2), resultSet.getString(3), resultSet.getByte(4));
                 user.setId(resultSet.getLong(1));
                 result.add(user);
-                connection.commit();
+                //connection.commit();
             }
 
             System.out.println("All users from TABLE " + result);
@@ -127,7 +118,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try(Statement statement = connection.createStatement()){
 
             statement.executeUpdate(query);
-            connection.commit();
+            //connection.commit();
 
             System.out.println("Delete users from TABLE `user`");
 
