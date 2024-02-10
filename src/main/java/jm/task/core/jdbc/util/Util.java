@@ -1,5 +1,10 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import javax.sql.ConnectionEvent;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -12,6 +17,7 @@ public class Util {
     private static final String USER = "root";
     private static final String PASSWORD = "java";
     private static Connection connection;
+    private static SessionFactory sessionFactory;
 
     public static Connection getConnection() {
         try {
@@ -31,4 +37,36 @@ public class Util {
             throw new RuntimeException(e);
         }
     }
+
+    public static SessionFactory getFactory(){
+        try {
+            // Создаем объект конфигурации Hibernate
+            Configuration configuration = new Configuration();
+
+            // Добавляем аннотированные классы в конфигурацию
+            configuration.addAnnotatedClass(User.class);
+
+            // Настраиваем свойства подключения к базе данных
+            configuration.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
+            configuration.setProperty("hibernate.connection.url", URL);
+            configuration.setProperty("hibernate.connection.username", USER);
+            configuration.setProperty("hibernate.connection.password", PASSWORD);
+
+            // Настраиваем режим создания таблиц (в данном случае - создание таблиц при необходимости)
+            configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+
+            // Создаем фабрику сессий
+            sessionFactory = configuration.buildSessionFactory();
+
+        } catch (Throwable ex) {
+            // Ловим и выводим исключения
+            System.err.println("Initial SessionFactory creation failed." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        return sessionFactory;
+    }
+    public static void closeSessionFactory() {
+        sessionFactory.close();
+    }
+
 }
