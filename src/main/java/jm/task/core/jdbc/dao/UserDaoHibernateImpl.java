@@ -5,11 +5,6 @@ import jm.task.core.jdbc.util.Util;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -37,6 +32,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
             System.out.println("TABLE `user` created");
         } catch (HibernateException e) {
+            sessionFactory.getCurrentSession().getTransaction().rollback();
             throw new RuntimeException(e);
         }
     }
@@ -51,6 +47,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
             System.out.println("TABLE `user` drop");
         } catch (HibernateException e) {
+            sessionFactory.getCurrentSession().getTransaction().rollback();
             throw new RuntimeException(e);
         }
     }
@@ -67,6 +64,7 @@ public class UserDaoHibernateImpl implements UserDao {
             System.out.println("User " + name + " save in TABLE `user`");
         } catch (HibernateException e) {
             sessionFactory.getCurrentSession().getTransaction().rollback();
+            throw new RuntimeException(e);
         }
     }
 
@@ -84,6 +82,7 @@ public class UserDaoHibernateImpl implements UserDao {
             System.out.println("Remove user from TABLE `user` where id " + id);
         } catch (HibernateException e) {
             sessionFactory.getCurrentSession().getTransaction().rollback();
+            throw new RuntimeException(e);
         }
     }
 
@@ -98,6 +97,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
             System.out.println("All users from TABLE " + result);
         } catch (HibernateException e) {
+            sessionFactory.getCurrentSession().getTransaction().rollback();
             throw new RuntimeException(e);
         }
         return result;
@@ -114,6 +114,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
             System.out.println("Delete users from TABLE `user`");
         } catch (HibernateException e) {
+            sessionFactory.getCurrentSession().getTransaction().rollback();
             throw new RuntimeException(e);
         }
     }

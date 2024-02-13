@@ -10,9 +10,8 @@ public class Main {
         // реализуйте алгоритм здесь
 
         UserServiceImpl userServiceImpl = new UserServiceImpl();
-        userServiceImpl.dropUsersTable();
 
-/*        userServiceImpl.dropUsersTable();
+        userServiceImpl.dropUsersTable();
         userServiceImpl.createUsersTable();
         userServiceImpl.dropUsersTable();
         userServiceImpl.createUsersTable();
@@ -26,14 +25,14 @@ public class Main {
 
         userServiceImpl.removeUserById(1);
         userServiceImpl.removeUserById(3);
-        userServiceImpl.removeUserById(5);*/
+        userServiceImpl.removeUserById(5);
 
-        /*userServiceImpl.getAllUsers();
+        userServiceImpl.getAllUsers();
 
         userServiceImpl.cleanUsersTable();
         userServiceImpl.getAllUsers();
         userServiceImpl.dropUsersTable();
-        Util.closeConnection();*/
+        Util.closeConnection();
         Util.closeSessionFactory();
 
 
